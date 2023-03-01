@@ -48,7 +48,7 @@ jobs:
           uses: docker/build-push-action@v3
           with:
             context: .
-            file: ./target/Dockerfile
+            file: ./Dockerfile
             push: true
             tags: ${{ secrets.NCP_CONTAINER_REGISTRY }}/tag-name:latest
             cache-from: type=registry,ref=${{ secrets.NCP_CONTAINER_REGISTRY }}/prv-frontend:latest
