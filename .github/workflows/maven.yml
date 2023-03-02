@@ -32,6 +32,7 @@ jobs:
 
   push_to_registry:
       name: Push to ncp container registry
+      needs: build
       runs-on: ubuntu-latest
       steps:
         - name: Checkout
