@@ -1,4 +1,4 @@
-FROM openjdk11
+FROM openjdk:11
 RUN ls
 ARG JAR_FILE=*.jar
 COPY ${JAR_FILE} app.jar
