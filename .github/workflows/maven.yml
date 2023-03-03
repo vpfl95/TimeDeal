@@ -33,7 +33,7 @@ jobs:
       run: |
        touch ./src/main/resources/application.properties
        echo "${{env.APPLICATION}}" > ./src/main/resources/application.properties
-       shell: bash
+
     - uses: actions/upload-artifact@v3
       with:
         name: application.properties
