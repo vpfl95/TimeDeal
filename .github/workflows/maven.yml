@@ -41,7 +41,12 @@ jobs:
     - name: Build with Maven
       run: |
         mvn -B package --file pom.xml
-        cd /home/runner/work/TimeDeal/TimeDeal/target
+        mkdir deploy
+        cd /home/runner/work/
+        ls
+        cd /home/runner/work/TimeDeal/
+        ls
+        cd /home/runner/work/TimeDeal/TimeDeal/
         ls
       
       working-directory: ${{ env.working-directory }}
