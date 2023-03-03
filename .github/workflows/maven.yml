@@ -42,7 +42,7 @@ jobs:
       run: |
         mvn -B package --file pom.xml
         cd /home/runner/work/TimeDeal/TimeDeal/target
-        cd ls
+        ls
       
       working-directory: ${{ env.working-directory }}
 
