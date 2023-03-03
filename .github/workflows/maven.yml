@@ -41,7 +41,7 @@ jobs:
     - name: Build with Maven
       run: |
         mvn -B package --file pom.xml
-        cd target
+        cd src
         cd ls
       
       working-directory: ${{ env.working-directory }}
