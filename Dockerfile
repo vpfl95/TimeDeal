@@ -2,7 +2,7 @@ FROM adoptopenjdk/openjdk11
 RUN mkdir /app
 WORKDIR /app
 COPY . .
-RUN  ./mvnw clean install
+RUN  ./mvnw.cmd clean install
 RUN ls
 ARG JAR_FILE=*.jar
 COPY ${JAR_FILE} app.jar
