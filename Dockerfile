@@ -1,5 +1,5 @@
 FROM adoptopenjdk/openjdk11
-RUN ls
+RUN cd tmp && ls
 RUN chmod +x mvnw
 RUN  ./mvnw clean install
 RUN mkdir /app
