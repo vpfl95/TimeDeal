@@ -3,7 +3,7 @@ RUN mkdir /app
 WORKDIR /app
 
 ARG JAR_FILE=*.jar
-COPY ${JAR_FILE} app.jar
+COPY src app.jar
 RUN ls
 ENTRYPOINT ["java","-jar","/app.jar"]
 EXPOSE 8080
