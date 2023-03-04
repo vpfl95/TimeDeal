@@ -80,7 +80,7 @@ jobs:
 
   pull_from_registry:
     name: Connect server ssh and pull from container registry
-    needs: build
+    needs:  push_to_registry
     runs-on: ubuntu-latest
     steps:
       - name: connect ssh
