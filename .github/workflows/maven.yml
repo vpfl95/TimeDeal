@@ -6,7 +6,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Java CI with Maven
+name: Java CI-CD with Maven
 
 on:
   push:
@@ -14,40 +14,29 @@ on:
   pull_request:
     branches: [ "master" ]
 
-jobs:
-  build:
+jobs: 
+  build_dockerpush:
     runs-on: ubuntu-latest
-    env :
-      working-directory: ./
-      APPLICATION: ${{ secrets.APPLICATION }}
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout
+      uses: actions/checkout@v3
     - name: Set up JDK 11
       uses: actions/setup-java@v3
       with:
         java-version: '11'
         distribution: 'temurin'
         cache: maven
-        
-    - name: Checkout
-      uses: actions/checkout@v3
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
-      
-      
     - name: make application.properties
-      if: true # branch가 develop일 때
+      if: true 
       run: |
        touch ./src/main/resources/application.properties
        echo "${{ secrets.APPLICATION }}" > ./src/main/resources/application.properties
-       cat ./src/main/resources/application.properties
-           
-    
+        
     - name: Build with Maven
-      run: |
-        mvn -B package --file pom.xml
-        cd src/main/resources && cat application.properties
-      working-directory: ${{ env.working-directory }}
+      run: mvn -B package --file pom.xml
+        
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
       
     - name: Login to NCP Container Registry
       uses: docker/login-action@v2
@@ -55,6 +44,7 @@ jobs:
         registry: ${{ secrets.NCP_CONTAINER_REGISTRY }}
         username: ${{ secrets.NCP_ACCESS_KEY }}
         password: ${{ secrets.NCP_SECRET_KEY }} 
+
     - name: build and push
       uses: docker/build-push-action@v3
       with:
@@ -62,14 +52,13 @@ jobs:
         file: ./Dockerfile
         push: true
         tags: ${{ secrets.NCP_CONTAINER_REGISTRY }}/tag-name:latest
-        cache-from: type=registry,ref=${{ secrets.NCP_CONTAINER_REGISTRY }}/prv-frontend:latest
+        cache-from: type=registry,ref=${{ secrets.NCP_CONTAINER_REGISTRY }}/tag-name:latest
         cache-to: type=inline
-        secrets: |
-          GIT_AUTH_TOKEN=${{ secrets.GIT_TOKEN }}
 
-  pull_from_registry:
+
+  pull_deploy:
     name: Connect server ssh and pull from container registry
-    needs:  build
+    needs:  build_dockerpush
     runs-on: ubuntu-latest
     steps:
       - name: connect ssh
