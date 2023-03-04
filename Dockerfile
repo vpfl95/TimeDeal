@@ -5,7 +5,7 @@ COPY . .
 RUN chmod +x mvnw
 RUN  ./mvnw clean install
 RUN cd target && ls
-ARG JAR_FILE=target/*.jar
+ARG JAR_FILE=*.jar
 COPY ${JAR_FILE} app.jar
 RUN ls
 ENTRYPOINT ["java","-jar","/app.jar"]
