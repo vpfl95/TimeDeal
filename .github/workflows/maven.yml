@@ -6,7 +6,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Java CI with Maven
+name: Java CI-CD with Maven
 
 on:
   push:
@@ -15,7 +15,7 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build:
+  build and docker push:
     runs-on: ubuntu-latest
     env :
       working-directory: ./
@@ -68,7 +68,7 @@ jobs:
 
   pull_from_registry:
     name: Connect server ssh and pull from container registry
-    needs:  build
+    needs: build and docker push
     runs-on: ubuntu-latest
     steps:
       - name: connect ssh
