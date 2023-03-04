@@ -1,7 +1,8 @@
 FROM adoptopenjdk/openjdk11
 RUN mkdir /app
 WORKDIR /app
-
+COPY . .
+RUN ls
 ARG JAR_FILE=*.jar
 COPY target app.jar
 RUN ls
