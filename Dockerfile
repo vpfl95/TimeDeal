@@ -4,7 +4,7 @@ WORKDIR /app
 COPY . .
 RUN chmod +x mvnw
 RUN  ./mvnw clean install
-RUN ls
+RUN cd target && ls
 ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} app.jar
 RUN ls
