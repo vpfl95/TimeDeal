@@ -1,7 +1,7 @@
 FROM adoptopenjdk/openjdk11
 RUN mkdir /app
 WORKDIR /app
-RUN mvnw clean package
+
 ARG JAR_FILE=*.jar
 COPY ${JAR_FILE} app.jar
 RUN ls
