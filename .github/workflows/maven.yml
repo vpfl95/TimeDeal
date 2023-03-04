@@ -28,7 +28,11 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: maven
-  
+        
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
       
       
     - name: make application.properties
@@ -42,10 +46,6 @@ jobs:
         name: application.properties
         path: ./src/main/resources/application.properties  
     
-    - name: Checkout
-      uses: actions/checkout@v3
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
     
     
     - name: Build with Maven
