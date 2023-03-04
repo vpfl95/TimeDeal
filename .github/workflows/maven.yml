@@ -28,31 +28,25 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: maven
-  
+        
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
       
       
     - name: make application.properties
       if: true # branch가 develop일 때
       run: |
        touch ./src/main/resources/application.properties
-       echo "${{env.APPLICATION}}" > ./src/main/resources/application.properties
-
-    - uses: actions/upload-artifact@v3
-      with:
-        name: application.properties
-        path: ./src/main/resources/application.properties  
-    
-    - name: Checkout
-      uses: actions/checkout@v3
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
-    
+       echo "${{ secrets.APPLICATION }}" > ./src/main/resources/application.properties
+       cat ./src/main/resources/application.properties
+           
     
     - name: Build with Maven
       run: |
         mvn -B package --file pom.xml
-        mkdir deploy
-        ls
+        cd src/main/resources && cat application.properties
       working-directory: ${{ env.working-directory }}
       
     - name: Login to NCP Container Registry
