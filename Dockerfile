@@ -1,5 +1,6 @@
 FROM adoptopenjdk/openjdk11
+RUN ls
 ARG JAR_FILE=*.jar
-COPY ./target/TimeDeal-0.0.1-SNAPSHOT.jar /target/TimeDeal-0.0.1-SNAPSHOT.jar
-ENTRYPOINT ["java","-jar","/target/TimeDeal-0.0.1-SNAPSHOT.jar"]
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
 EXPOSE 8080
