@@ -51,7 +51,7 @@ jobs:
     - name: Build with Maven
       run: |
         mvn -B package --file pom.xml
-        cd src/main/resources && ls
+        cd src/main/resources && cat application.properties
       working-directory: ${{ env.working-directory }}
       
     - name: Login to NCP Container Registry
