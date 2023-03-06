@@ -70,8 +70,8 @@ jobs:
           port: ${{ secrets.DEPLOYMENT_PORT }}
           script: |
             docker pull ${{ secrets.NCP_CONTAINER_REGISTRY }}/tag-name
-            docker stop $(docker ps -a -q)
-            docker rm $(docker ps -a -q)
+            docker stop spring
+            docker rm spring
             docker run -d -p 8080:80 --name spring ${{ secrets.NCP_CONTAINER_REGISTRY }}/tag-name
             docker image prune -f
   
