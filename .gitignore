@@ -170,6 +170,7 @@ $RECYCLE.BIN/
 
 #my file
 application-secret.properties
+application-dev.properties
 application-prod.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,java,eclipse,web
