@@ -4,6 +4,8 @@
 
 <div class="d-flex justify-content-end mt-3" style="width:85%">
     <div>
+        <a href="/">Home</a>
+        <span style="padding: 0px 9px 0px 14px">|</span>
         <c:if test="${empty member}">
             <a href="/member/login">로그인</a>
             <span style="padding: 0px 9px 0px 14px">|</span>
@@ -14,7 +16,7 @@
                 <a href="/member/mypage">마이페이지</a>
             </c:if>
             <c:if test="${not empty adminRole}">
-                <a href="/member/admin">관리자</a>
+                <a href="/admin/members">관리자</a>
             </c:if>
             <!-- <a href="/member/mypage">마이페이지</a> -->
             <span style="padding: 0px 9px 0px 14px">|</span>
