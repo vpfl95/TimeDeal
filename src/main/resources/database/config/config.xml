@@ -4,5 +4,8 @@
 	"http://mybatis.org/dtd/mybatis-3-config.dtd">
 	
 <configuration>
-	
+	<typeAliases>
+		<typeAlias type="com.dh.home.member.MemberVO" alias="MemberVO"/>
+		<typeAlias type="com.dh.home.member.Role" alias="Role"/>
+	</typeAliases>
 </configuration>
