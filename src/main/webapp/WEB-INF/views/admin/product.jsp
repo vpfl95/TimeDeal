@@ -14,6 +14,6 @@
 	<h1>상품</h1>
     <a href="/admin/members">멤버리스트</a>
     <a href="/admin/product">내가 등록한 상품</a>
-    <a href="/admin/product/write"></a>
+    <a href="/product/write">상품 등록</a>
 </body>
 </html>

@@ -6,6 +6,7 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.dh.home.member.MemberVO" alias="MemberVO"/>
+		<typeAlias type="com.dh.home.product.ProductVO" alias="ProductVO"/>
 		<typeAlias type="com.dh.home.member.Role" alias="Role"/>
 	</typeAliases>
 </configuration>
