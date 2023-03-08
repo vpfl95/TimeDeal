@@ -20,9 +20,9 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 	
-	@GetMapping("write")
+	@GetMapping("add")
 	public void setProduct()throws Exception{}
-	@PostMapping("write")
+	@PostMapping("add")
 	public String setProduct(ProductVO productVO, HttpSession session)throws Exception{
 		session.getAttribute("member");
 		log.info("==============================");

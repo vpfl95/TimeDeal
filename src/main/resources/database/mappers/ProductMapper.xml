@@ -6,7 +6,15 @@
 
 <mapper namespace="com.dh.home.product.ProductMapper">
 	
-	<insert id="setProduct" parameterType="ProductVO">
+	<select id="getProduct" parameterType="String" resultType="ProductVO">
+		SELECT * FROM PRODUCT WHERE ID=#{id}
+	</select>
+	
+	<insert id="setFileAdd" parameterType="ProductImageVO">
+		INSERT INTO PRODUCTIMAGE VALUES(null,#{fileName}, #{oriName}, #{itemNum})
+	</insert>
+	
+	<insert id="setProduct" parameterType="ProductVO" useGeneratedKeys="true" keyProperty="itemNum">
 		INSERT INTO PRODUCT VALUES(null,#{itemName}, #{ea}, #{startTime}, #{endTime}, #{id})
 	</insert>
 	

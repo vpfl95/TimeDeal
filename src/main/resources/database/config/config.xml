@@ -7,6 +7,11 @@
 	<typeAliases>
 		<typeAlias type="com.dh.home.member.MemberVO" alias="MemberVO"/>
 		<typeAlias type="com.dh.home.product.ProductVO" alias="ProductVO"/>
+		<typeAlias type="com.dh.home.product.ProductImageVO" alias="ProductImageVO"/>
 		<typeAlias type="com.dh.home.member.Role" alias="Role"/>
+		
+		<typeAlias type="java.util.List" alias="List"/>
+		<typeAlias type="java.lang.Long" alias="Long"/>
+		<typeAlias type="java.lang.String" alias="String"/>
 	</typeAliases>
 </configuration>

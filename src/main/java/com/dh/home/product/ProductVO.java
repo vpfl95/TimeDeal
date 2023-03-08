@@ -2,8 +2,10 @@ package com.dh.home.product;
 
 import java.sql.Time;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 
@@ -17,4 +19,6 @@ public class ProductVO {
 	@DateTimeFormat(pattern = "HH:mm")
 	private Date endTime;
 	private String id;
+	private MultipartFile[] files;
+	private List<ProductImageVO> fileVOs;
 }

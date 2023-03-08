@@ -38,7 +38,7 @@ public class MemberController {
 		log.info("========================================");
 		System.out.println(memberVO.getRole().getRoleName());
 		log.info("========================================");
-		session.setAttribute("member", memberVO);
+		session.setAttribute("member", memberVO.getId());
 		if(memberVO.getRole().getRoleName().equals("MEMBER")) {
 			session.setAttribute("memberRole", memberVO.getRole());			
 		}else {
