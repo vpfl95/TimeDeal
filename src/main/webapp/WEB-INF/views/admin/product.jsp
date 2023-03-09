@@ -37,8 +37,8 @@
                                 <td style="display:table-cell;vertical-align:middle;">${productVO.itemNum}</td>
                                 <td style="display:table-cell;vertical-align:middle;">${productVO.itemName}</td>
                                 <td style="display:table-cell;vertical-align:middle;">${productVO.ea}</td>
-                                <td style="display:table-cell;vertical-align:middle;"><fmt:formatDate pattern="HH:mm" value="${productVO.startTime}"/></td>
-                                <td style="display:table-cell;vertical-align:middle;"><fmt:formatDate pattern="HH:mm" value="${productVO.endTime}"/></td>
+                                <td style="display:table-cell;vertical-align:middle;">${productVO.startTime}"</td>
+                                <td style="display:table-cell;vertical-align:middle;">"${productVO.endTime}"</td>
                             </tr>
                         </c:forEach>
 

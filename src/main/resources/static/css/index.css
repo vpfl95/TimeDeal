@@ -1,0 +1,38 @@
+.tit {
+    display: inline-block;
+    height: 35px;
+    margin-top: -1px;
+    padding: 8px 18px 30px 19px;
+    border: 1px solid #e72e3e;
+    border-radius: 20px;
+    background: #ff0038;
+    vertical-align: middle;
+}
+
+
+.time {
+    display: inline-block;
+    margin-top: -1px;
+    padding: 0 14px 0 9px;
+    font-size: 15px;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.prd_box .prd_info .deal .num {
+    position: absolute;
+
+    right: 300px;
+    font-size: 17px;
+    color: #666;
+}
+
+.name {
+    height: 60px;
+    margin: 16px 0 0;
+    padding: 0;
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 30px;
+    word-break: keep-all;
+}

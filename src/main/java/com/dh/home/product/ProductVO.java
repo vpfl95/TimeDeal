@@ -1,6 +1,7 @@
 package com.dh.home.product;
 
 import java.sql.Time;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -14,10 +15,10 @@ public class ProductVO {
 	private int itemNum;
 	private String itemName;
 	private int ea;
-	@DateTimeFormat(pattern = "HH:mm")
-	private Date startTime;
-	@DateTimeFormat(pattern = "HH:mm")
-	private Date endTime;
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+	private LocalDateTime startTime;
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+	private LocalDateTime endTime;
 	private String id;
 	private MultipartFile[] files;
 	private List<ProductImageVO> fileVOs;

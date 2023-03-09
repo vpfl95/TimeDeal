@@ -22,6 +22,46 @@ public class ProductService {
 	@Value("${app.product}")
 	private String path;
 	
+	
+	public int setFileDelete(String fileNum)throws Exception{
+		return productMapper.setFileDelete(fileNum);
+	}
+	
+	
+	public int updateProduct(ProductVO productVO)throws Exception{
+		int result = productMapper.updateProduct(productVO);
+		File file = new File(path);
+		
+		if(!file.exists()) {
+			boolean check = file.mkdirs();
+		}
+		if(productVO.getFiles()!=null) {
+			for(MultipartFile f: productVO.getFiles()) {
+				if(!f.isEmpty()) {
+					log.info("productVO => {}",productVO);
+					String fileName = fileManager.saveFile(f, path);
+					
+					ProductImageVO productImageVO = new ProductImageVO();
+					productImageVO.setItemNum(productVO.getItemNum());
+					productImageVO.setFileName(fileName);
+					productImageVO.setOriName(f.getOriginalFilename());
+					
+					productMapper.setFileAdd(productImageVO);
+				}
+			}
+			
+		}
+		return result;
+	}
+	
+	public ProductVO findByItemNum(String itmeNum)throws Exception{
+		return productMapper.findByItemNum(itmeNum);
+	}
+	
+	public List<ProductVO> getAllProduct()throws Exception{
+		return productMapper.getAllProduct();
+	}
+	
 	public List<ProductVO> getProduct(String id)throws Exception{
 		return productMapper.getProduct(id);
 	}

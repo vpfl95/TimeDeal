@@ -13,14 +13,14 @@
 <body>
 	<c:import url="../template/header.jsp"></c:import>
 	<h1>상품 등록</h1>
-    <form action="add" method="post" enctype="multipart/form-data">
+    <form action="/product" method="post" enctype="multipart/form-data">
         상품이름 <input type="text" name="itemName">
         <div id="fileBox">
         </div> 
         이미지<input  type="file" name="files" id="files" class="files form-control form-control-sm" onchange="setThumbnail(event)">
         재고 <input type="text" name="ea">
-        시작 시간 <input type="time" name="startTime">
-        끝 시간 <input type="time" name="endTime">
+        시작 시간 <input type="datetime-local" name="startTime">
+        끝 시간 <input type="datetime-local" name="endTime">
         <input type="test" name="id" value="${member}">
         <button>등록</button>
     </form>

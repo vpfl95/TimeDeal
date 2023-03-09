@@ -5,15 +5,54 @@
 		    "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 
 <mapper namespace="com.dh.home.product.ProductMapper">
+	<!-- 상품 이미지 삭제  -->
+	<delete id="setFileDelete" parameterType="String">
+		Delete FROM PRODUCTIMAGE WHERE FILENUM=#{fileNum}
+	</delete>
+	<!-- 상품 수정  -->
+	<update id="updateProduct" parameterType="ProductVO">
+		UPDATE PRODUCT SET ITEMNAME=#{itemName}, EA=#{ea}, STARTTIME=#{startTime}, ENDTIME=#{endTime} WHERE ITEMNUM=#{itemNum};
+	</update>
+	<!-- 상품 상세 조회  -->
+	<select id="findByItemNum" parameterType="String" resultMap="allProduct">
+		SELECT P.ITEMNUM, P.ITEMNAME, P.EA, DATE_FORMAT(P.STARTTIME,'%Y-%m-%d %H:%i') STARTTIME, DATE_FORMAT(P.ENDTIME,'%Y-%m-%d %H:%i') ENDTIME , PI.*
+		FROM PRODUCT P
+			INNER JOIN
+			PRODUCTIMAGE PI
+			USING(ITEMNUM)
+		WHERE ITEMNUM=#{itemNum}
+	</select>
 	
+	<!-- 전체 상품 조회-->
+	<select id="getAllProduct" resultMap="allProduct">
+		SELECT P.*, PI.*
+		FROM PRODUCT P
+			INNER JOIN
+			PRODUCTIMAGE PI
+			USING(ITEMNUM)
+	</select>
+	<resultMap type="ProductVO" id="allProduct">
+		<id column="itemNum" property="itemNum"/>
+		<result column="itemName" property="itemName"/>
+		<result column="ea" property="ea"/>
+		<result column="startTime" property="startTime"/>
+		<result column="endTime" property="endTime"/>
+		<collection property="fileVOs" javaType="List" ofType="ProductImageVO">
+			<id column="fileNum" property="fileNum"/>
+			<result column="fileName" property="fileName"/>
+			<result column="oriName" property="oriName"/>
+		</collection>
+	</resultMap>
+	
+	<!-- 등록자별 상품  조회-->
 	<select id="getProduct" parameterType="String" resultType="ProductVO">
 		SELECT * FROM PRODUCT WHERE ID=#{id}
 	</select>
-	
+	<!-- 상품 이미지 등록  -->
 	<insert id="setFileAdd" parameterType="ProductImageVO">
 		INSERT INTO PRODUCTIMAGE VALUES(null,#{fileName}, #{oriName}, #{itemNum})
 	</insert>
-	
+	<!-- 상품등록  -->
 	<insert id="setProduct" parameterType="ProductVO" useGeneratedKeys="true" keyProperty="itemNum">
 		INSERT INTO PRODUCT VALUES(null,#{itemName}, #{ea}, #{startTime}, #{endTime}, #{id})
 	</insert>
