@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.dh.home.member.MemberMapper;
 import com.dh.home.util.FileManager;
 
 import lombok.extern.slf4j.Slf4j;
@@ -19,8 +20,23 @@ public class ProductService {
 	private ProductMapper productMapper;
 	@Autowired
 	private FileManager fileManager;
+	@Autowired
+	private MemberMapper memberMapper;
 	@Value("${app.product}")
 	private String path;
+	
+	public int buyPrd(Long itemNum)throws Exception{
+		log.info("===============상품 구매 서비스===============");
+		Long EA = productMapper.buyCheckEA(itemNum);
+		log.info("재고=>{}",EA);
+		int result=0;
+		if(EA>0) {
+			result = productMapper.buyPrd(itemNum);
+			log.info("구매");
+		}
+		
+		return result;
+	}
 	
 	
 	public int setFileDelete(String fileNum)throws Exception{

@@ -5,6 +5,16 @@
 		    "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 
 <mapper namespace="com.dh.home.product.ProductMapper">
+	
+	<!--상품 구매-->
+	<select id="buyCheckEA" parameterType="Long" resultType="Long">
+		SELECT EA FROM PRODUCT WHERE ITEMNUM=#{itemNum}
+	</select>
+	<update id="buyPrd" parameterType="Long">
+		UPDATE PRODUCT SET EA=EA-1 WHERE ITEMNUM=#{itemNum}
+	</update>	
+	
+
 	<!-- 상품 이미지 삭제  -->
 	<delete id="setFileDelete" parameterType="String">
 		Delete FROM PRODUCTIMAGE WHERE FILENUM=#{fileNum}

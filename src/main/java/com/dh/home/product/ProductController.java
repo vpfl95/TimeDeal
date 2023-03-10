@@ -12,8 +12,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.dh.home.member.MemberService;
+import com.dh.home.order.OrderService;
+import com.dh.home.order.OrderVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,8 +29,34 @@ public class ProductController {
 
 	@Autowired
 	private ProductService productService;
+	@Autowired
+	private MemberService memberService;
+	@Autowired
+	private OrderService orderService;
 	
-	//상품 상세
+	// 상품 구매
+	@PostMapping("/buy")
+	@ResponseBody
+	public int buyPrd(@RequestParam("itemNum") Long itemNum, @RequestParam("id") String id)throws Exception{
+		log.info("===============상품 구매===============");
+		OrderVO orderVO = OrderVO.builder()
+				.id(id)
+				.itemNum(itemNum)
+				.build();
+		if(orderService.checkOrder(orderVO)==1) {
+			return 0;
+		}
+		
+		int result = productService.buyPrd(itemNum);
+		
+		if(result==1) {
+			result = orderService.buyOrder(orderVO);
+			log.info("주문 완료");
+		}
+		return result;
+	}
+	
+	//상품 이미지 삭제
 	@DeleteMapping("/{fileNum}")
 	@ResponseBody
 	public int deleteFile(@PathVariable("fileNum") String fileNum, ModelAndView mv)throws Exception {

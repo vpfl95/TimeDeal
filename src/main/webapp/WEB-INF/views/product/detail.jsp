@@ -31,7 +31,7 @@
                             <span class="num"><em>${productVO.ea}개</em> 남음</span>
                         </div>
                         <p class="name">${productVO.itemName}</p>
-                        <button class="btn btn-dark" type="button">구매하기</button>
+                        <button class="btn btn-dark" data-id="${member}" data-itemNum="${productVO.itemNum}" type="button" onclick="buy(event)">구매하기</button>
                         <c:if test="${not empty adminRole}">
                             <div>
                                 <button class="btn btn-success" type="button" onclick="location.href='/product/add/${productVO.itemNum}'">수정</button>
@@ -44,5 +44,33 @@
         </div>
     </section>
 </div>
+<script>
+    function buy(event){
+        console.log("구매하기")
+        let itemNum = $(event.target).attr("data-itemNum")
+        let id = $(event.target).attr("data-id")
+        console.log(itemNum)
+        console.log(id)
+        $.ajax({
+            type:"POST",
+            url:"/product/buy",
+            data:{
+                id:id,
+                itemNum:itemNum
+            },
+            success:function(data){
+            console.log(data)
+            if(data==0){
+                alert("이미 구매했습니다.")
+            }else{
+                alert("구매완료")
+            }
+            }
+
+        })
+
+    }
+
+</script>
 </body>
 </html>

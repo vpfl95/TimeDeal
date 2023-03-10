@@ -26,6 +26,6 @@
     </form>
     <button id="asd">등록</button>
 
-    <script src="/js/product/product.js"></script>
+    <script src="/js/product/productImage.js"></script>
 </body>
 </html>

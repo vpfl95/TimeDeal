@@ -5,11 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dh.home.order.OrderVO;
+
 @Service
 public class MemberService {
 	
 	@Autowired
 	private MemberMapper memberMapper;
+	
 	
 	public List<MemberVO> getMembers()throws Exception{
 		return memberMapper.getMembers();

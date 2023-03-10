@@ -12,9 +12,9 @@ import lombok.Data;
 
 @Data
 public class ProductVO {
-	private int itemNum;
+	private Long itemNum;
 	private String itemName;
-	private int ea;
+	private Long ea;
 	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	private LocalDateTime startTime;
 	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")

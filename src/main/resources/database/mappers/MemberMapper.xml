@@ -6,6 +6,7 @@
 
 <mapper namespace="com.dh.home.member.MemberMapper">
 	
+	
 	<select id="getMembers" resultMap="getLoginResult">
 		SELECT M.*, R.* 
 		FROM MEMBER M
