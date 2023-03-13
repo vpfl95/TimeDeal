@@ -6,6 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.dh.home.member.MemberMapper;
@@ -25,17 +28,31 @@ public class ProductService {
 	@Value("${app.product}")
 	private String path;
 	
-	public int buyPrd(Long itemNum)throws Exception{
-		log.info("===============상품 구매 서비스===============");
-		Long EA = productMapper.buyCheckEA(itemNum);
-		log.info("재고=>{}",EA);
-		int result=0;
-		if(EA>0) {
-			result = productMapper.buyPrd(itemNum);
-			log.info("구매");
-		}
+	@Transactional(isolation = Isolation.READ_COMMITTED)
+	public Boolean buyPrd(ProductVO productVO)throws Exception{
+		//log.info("===============상품 구매 서비스===============");
+		System.out.println(Thread.currentThread().getName()+ "===============상품 구매 서비스===============");
 		
-		return result;
+		Long EA = productMapper.buyCheckEA(productVO.getItemNum());
+		//log.info("재고 확인=>{}",EA);
+		System.out.println(Thread.currentThread().getName() + "재고확인" +EA);
+		
+		if(EA>0) {
+			EA--;
+			productVO.setEa(EA);
+			int result = productMapper.buyPrd(productVO);
+			//log.info("구매");
+	
+			
+			if(result==1) {
+				EA = productMapper.buyCheckEA(productVO.getItemNum());
+				System.out.println(Thread.currentThread().getName() + "구매 성공"+ "=>"+ "남은재고" +EA);
+				return true;				
+			}
+		}
+		System.out.println(Thread.currentThread().getName() + "구매 실패 !!!!");
+		
+		return false;
 	}
 	
 	
@@ -54,7 +71,7 @@ public class ProductService {
 		if(productVO.getFiles()!=null) {
 			for(MultipartFile f: productVO.getFiles()) {
 				if(!f.isEmpty()) {
-					log.info("productVO => {}",productVO);
+
 					String fileName = fileManager.saveFile(f, path);
 					
 					ProductImageVO productImageVO = new ProductImageVO();
@@ -83,7 +100,7 @@ public class ProductService {
 	}
 	
 	public int setProduct(ProductVO productVO)throws Exception{
-		log.info(productVO.toString());
+	
 		int result =  productMapper.setProduct(productVO);
 		
 		File file = new File(path);
@@ -94,7 +111,7 @@ public class ProductService {
 		
 		for(MultipartFile f: productVO.getFiles()) {
 			if(!f.isEmpty()) {
-				log.info("productVO => {}",productVO);
+			
 				String fileName = fileManager.saveFile(f, path);
 				
 //				ProductImageVO productImageVO = ProductImageVO.builder()

@@ -8,8 +8,12 @@ public class OrderService {
 	@Autowired
 	private OrderMapper orderMapper;
 	
-	public Long checkOrder(OrderVO orderVO)throws Exception{
-		return orderMapper.checkOrder(orderVO);
+	public Boolean checkOrder(OrderVO orderVO)throws Exception{
+		Long result = orderMapper.checkOrder(orderVO);
+		if(result>0) {
+			return false;
+		}
+		return true;
 	}
 	
 	public int buyOrder(OrderVO orderVO)throws Exception{

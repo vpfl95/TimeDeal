@@ -37,20 +37,25 @@ public class ProductController {
 	// 상품 구매
 	@PostMapping("/buy")
 	@ResponseBody
-	public int buyPrd(@RequestParam("itemNum") Long itemNum, @RequestParam("id") String id)throws Exception{
+	public Boolean buyPrd(ProductVO productVO, @RequestParam("id") String id)throws Exception{
 		log.info("===============상품 구매===============");
 		OrderVO orderVO = OrderVO.builder()
 				.id(id)
-				.itemNum(itemNum)
+				.itemNum(productVO.getItemNum())
 				.build();
-		if(orderService.checkOrder(orderVO)==1) {
-			return 0;
+		
+		// 구매 여부 확인
+		if(!orderService.checkOrder(orderVO)) {
+			log.info("이미 구매 했음");
+			return false;
 		}
 		
-		int result = productService.buyPrd(itemNum);
+		// 상품 구매
+		boolean result = productService.buyPrd(productVO);
 		
-		if(result==1) {
-			result = orderService.buyOrder(orderVO);
+		//주문서 기록
+		if(result) {
+			orderService.buyOrder(orderVO);
 			log.info("주문 완료");
 		}
 		return result;

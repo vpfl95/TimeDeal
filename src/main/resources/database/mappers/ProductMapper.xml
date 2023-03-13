@@ -8,10 +8,10 @@
 	
 	<!--상품 구매-->
 	<select id="buyCheckEA" parameterType="Long" resultType="Long">
-		SELECT EA FROM PRODUCT WHERE ITEMNUM=#{itemNum}
+		SELECT EA FROM PRODUCT WHERE ITEMNUM=#{itemNum} for update;
 	</select>
-	<update id="buyPrd" parameterType="Long">
-		UPDATE PRODUCT SET EA=EA-1 WHERE ITEMNUM=#{itemNum}
+	<update id="buyPrd" parameterType="ProductVO">
+		UPDATE PRODUCT SET EA=#{ea} WHERE ITEMNUM=#{itemNum}
 	</update>	
 	
 
